@@ -1,2 +1,3 @@
-0
-2
+{&, aaaaaaap, aaaaaap, aaaaap, aaaap, aaap, aap, ap, p}
+{&, 01, 1}
+{&, a, hola, la, ola}

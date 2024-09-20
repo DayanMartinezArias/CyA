@@ -1,10 +1,11 @@
 #include "cadena.h"
+#include "lenguaje.h"
 #include "salida-entrada.h"
 #include <fstream>
 #include <sstream>
 
 void Procesar(std::ifstream& entrada, std::ofstream& salida, const char opcode) {
-  std::string linea, linea_alfabeto;
+  std::string linea;
   while (std::getline(entrada, linea)) {
     std::istringstream mi_stream(linea);
     Cadena cad;
@@ -18,6 +19,12 @@ void Procesar(std::ifstream& entrada, std::ofstream& salida, const char opcode) 
         break;
       case '3' :
         salida << cad.Invertir() << std::endl;
+        break;
+      case '4' :
+        salida << cad.Prefijos() << std::endl;
+        break;
+      case '5' :
+        salida << cad.Sufijos() << std::endl;
         break;
     } 
   }

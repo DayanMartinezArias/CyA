@@ -21,7 +21,9 @@
 
 #include <set>
 #include "alfabeto.h"
+#include "lenguaje.h"
 
+class Lenguaje;
 constexpr char kVacia{'&'};
 
 class Cadena {
@@ -31,6 +33,10 @@ class Cadena {
   int GetLongitud() const;
   Alfabeto GetAlfabeto() const;
   Cadena Invertir();
+  bool operator<(const Cadena& other) const;
+  bool vacia() const;
+  Lenguaje Prefijos();
+  Lenguaje Sufijos();
   friend std::ostream& operator<<(std::ostream& os, const Cadena& obj);
   friend std::istream& operator>>(std::istream& is, Cadena& obj);
  private:
