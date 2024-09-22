@@ -12,8 +12,12 @@ Cadena::Cadena(const std::string& cadena, const Alfabeto& alfabeto)
 }
 
 bool Cadena::operator<(const Cadena& other) const {
-  return cadena_ < other.cadena_;  
+  if (cadena_.length() != other.cadena_.length()) {
+    return cadena_.length() < other.cadena_.length();
+  }
+  return cadena_ < other.cadena_; 
 }
+
 
 bool Cadena::vacia() const {
   return cadena_ == std::string(1, kVacia);
@@ -37,9 +41,7 @@ int Cadena::GetLongitud() const {
 Alfabeto Cadena::GetAlfabeto() const {
   if (!vacia()) {
     return alfabeto_;
-  } else {
-    Alfabeto();
-  }
+  } 
 }
 
 /**
@@ -50,10 +52,23 @@ Alfabeto Cadena::GetAlfabeto() const {
  * @return std::ostream& 
  */
 std::ostream& operator<<(std::ostream& os, const Cadena& obj) {
+  if(obj.longitud_ == 0) {
+    os << "&";
+    return os;
+  } 
   for (char simbolo : obj.cadena_) {
     os << simbolo;
   }
   return os;
+}
+
+bool Cadena::AlfabetoValido(Alfabeto& alfabeto) const {
+  for (char simbolo : cadena_) {
+    if (!alfabeto.ExisteSimbolo(simbolo)) {
+      return false; 
+    }
+  }
+  return true;
 }
 
 /**
@@ -90,25 +105,24 @@ Cadena Cadena::Invertir() {
 } 
 
 Lenguaje Cadena::Prefijos() {
-  Lenguaje aux;
-  std::string vacia{"&"};
-  for (int i{0}; i <= cadena_.length(); ++i) {
-    Cadena cad_aux(vacia, alfabeto_);
-    aux.InsertarCadena(cad_aux);
-    if(vacia == "&") vacia.clear();
-    vacia += cadena_[i];
+  Lenguaje aux(alfabeto_);
+  std::string prefijo;
+  aux.InsertarCadena(Cadena("", alfabeto_));  // Insertar la cadena vacía real
+  for (int i = 0; i < cadena_.length(); ++i) {
+    prefijo += cadena_[i];  // Construir el prefijo
+    aux.InsertarCadena(Cadena(prefijo, alfabeto_));
   }
   return aux;
 }
 
 Lenguaje Cadena::Sufijos() {
-  Lenguaje aux;
-  std::string vacia{"&"};
-  aux.InsertarCadena(Cadena(vacia, alfabeto_));  // Insertar cadena vacía primero
+  Lenguaje aux(alfabeto_);
+  aux.InsertarCadena(Cadena("", alfabeto_));  // Insertar la cadena vacía real
   for (int i = 0; i < cadena_.length(); ++i) {
     std::string sufijo = cadena_.substr(i);  // Obtener el sufijo desde la posición i
     aux.InsertarCadena(Cadena(sufijo, alfabeto_));
   }
   return aux;
 }
+
 

@@ -26,7 +26,11 @@ class Alfabeto {
  public:
   Alfabeto() = default;
   Alfabeto(const std::string alfabeto);
+  Alfabeto(const Alfabeto& alfabeto);
   friend std::ostream& operator<<(std::ostream& os, const Alfabeto& obj);
+  friend std::istream& operator>>(std::istream& is, Alfabeto& obj);
+  bool operator==(const Alfabeto& alfabeto) const;
+  bool operator!=(const Alfabeto& alfabeto) const;
   bool ExisteSimbolo(const char simbolo);
   void InsertarSimbolo(const char simbolo);
  private:

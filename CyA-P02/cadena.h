@@ -24,6 +24,7 @@
 #include "lenguaje.h"
 
 class Lenguaje;
+
 constexpr char kVacia{'&'};
 
 class Cadena {
@@ -37,6 +38,7 @@ class Cadena {
   bool vacia() const;
   Lenguaje Prefijos();
   Lenguaje Sufijos();
+  bool AlfabetoValido(Alfabeto& alfabeto) const;
   friend std::ostream& operator<<(std::ostream& os, const Cadena& obj);
   friend std::istream& operator>>(std::istream& is, Cadena& obj);
  private:

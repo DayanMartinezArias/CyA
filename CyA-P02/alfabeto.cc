@@ -11,6 +11,10 @@ Alfabeto::Alfabeto(const std::string alfabeto) {
   }
 }
 
+Alfabeto::Alfabeto(const Alfabeto& alfabeto) {
+  alfabeto_ = alfabeto.alfabeto_;
+}
+
 /**
  * @brief 
  * 
@@ -29,6 +33,47 @@ bool Alfabeto::ExisteSimbolo(const char simbolo) {
  */
 void Alfabeto::InsertarSimbolo(const char simbolo) {
   alfabeto_.insert(simbolo);
+}
+
+/**
+ * @brief 
+ * 
+ * @param alfabeto 
+ * @return true 
+ * @return false 
+ */
+bool Alfabeto::operator==(const Alfabeto& alfabeto) const{
+  return alfabeto_ == alfabeto.alfabeto_;
+}
+
+/**
+ * @brief 
+ * 
+ * @param alfabeto 
+ * @return true 
+ * @return false 
+ */
+bool Alfabeto::operator!=(const Alfabeto& alfabeto) const {
+  return alfabeto_ != alfabeto.alfabeto_;
+}
+
+/**
+ * @brief 
+ * 
+ * @param is 
+ * @param obj 
+ * @return std::istream& 
+ */
+std::istream& operator>>(std::istream& is, Alfabeto& obj) {
+  std::string nuevo_alfabeto;
+  is >> nuevo_alfabeto;
+
+  Alfabeto aux;
+  for(char simbolo : nuevo_alfabeto) {
+    aux.InsertarSimbolo(simbolo);
+  }
+  obj = aux;
+  return is;
 }
 
 /**
